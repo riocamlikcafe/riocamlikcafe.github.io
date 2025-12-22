@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rio Çamlık - Menu</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        h1 {
+            font-size: 3em;
+            color: #2d3748;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .tagline {
+            font-size: 1.2em;
+            color: #667eea;
+            font-style: italic;
+        }
+
+        .home-screen {
+            display: block;
+        }
+
+        .menu-section-content {
+            display: none;
+        }
+
+        .menu-section-content.active {
+            display: block;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .category-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px 20px;
+            border-radius: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            border: none;
+            font-size: 1.1em;
+        }
+
+        .category-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+        }
+
+        .category-icon {
+            font-size: 2.5em;
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        .category-name {
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+
+        .back-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1em;
+            margin-bottom: 30px;
+            transition: transform 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .section-title {
+            font-size: 2em;
+            color: #667eea;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-icon {
+            font-size: 1.2em;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .menu-item {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-left: 4px solid #667eea;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .item-name {
+            font-size: 1.2em;
+            color: #2d3748;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .item-description {
+            font-size: 0.9em;
+            color: #718096;
+            margin-bottom: 12px;
+            font-style: italic;
+            line-height: 1.4;
+        }
+
+        .item-price {
+            font-size: 1.3em;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 2px solid #e2e8f0;
+            color: #718096;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .tagline {
+                font-size: 1em;
+            }
+
+            .category-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .category-button {
+                padding: 25px 15px;
+            }
+
+            .category-icon {
+                font-size: 2em;
+            }
+
+            .category-name {
+                font-size: 1.1em;
+            }
+
+            .section-title {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌿 Rio Çamlık 🌿</h1>
+            <p class="tagline">Lezzet ve Kahve Buluşması</p>
+        </header>
+
+        <div id="home" class="home-screen">
+            <div class="category-grid">
+                <button class="category-button" onclick="showSection('snacks')">
+                    <span class="category-icon">🍿</span>
+                    <span class="category-name">Atıştırmalıklar</span>
+                </button>
+                <button class="category-button" onclick="showSection('classic-coffee')">
+                    <span class="category-icon">☕</span>
+                    <span class="category-name">Classic Kahveler</span>
+                </button>
+                <button class="category-button" onclick="showSection('frappe')">
+                    <span class="category-icon">🥤</span>
+                    <span class="category-name">Frappeler</span>
+                </button>
+                <button class="category-button" onclick="showSection('frozen')">
+                    <span class="category-icon">🧊</span>
+                    <span class="category-name">Frozenlar</span>
+                </button>
+                <button class="category-button" onclick="showSection('beverages')">
+                    <span class="category-icon">🥤</span>
+                    <span class="category-name">Hazır İçecekler</span>
+                </button>
+                <button class="category-button" onclick="showSection('desserts')">
+                    <span class="category-icon">🍰</span>
+                    <span class="category-name">Pasta & Tatlılar</span>
+                </button>
+                <button class="category-button" onclick="showSection('special-coffee')">
+                    <span class="category-icon">✨</span>
+                    <span class="category-name">Special Kahveler</span>
+                </button>
+                <button class="category-button" onclick="showSection('tea')">
+                    <span class="category-icon">🍵</span>
+                    <span class="category-name">Çaylar</span>
+                </button>
+                <button class="category-button" onclick="showSection('food')">
+                    <span class="category-icon">🍔</span>
+                    <span class="category-name">Yiyecek</span>
+                </button>
+            </div>
+        </div>
+
+        <div id="snacks" class="menu-section-content">
+            <button class="back-button" onclick="showHome()">← Ana Menüye Dön</button>
+            <h2 class="section-title"><span class="section-icon">🍿</span> Atıştırmalıklar</h2>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <div class="item-name">Doritos/Ruffles Cips</div>
+                    <div class="item-description">Çıtır çıtır patates cipsi, klasik lezzet</div>
+                    <div class="item-price">130₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Milka Çikolata</div>
+                    <div class="item-description">İsviçre'nin ünlü sütlü çikolatası</div>
+                    <div class="item-price">160₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Master Cips</div>
+                    <div class="item-description">Kalın dilim patates cipsi</div>
+                    <div class="item-price">180₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Çerez</div>
+                    <div class="item-description">Karışık kuruyemiş çeşitleri</div>
+                    <div class="item-price">200₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Çekirdek</div>
+                    <div class="item-description">Tuzlu ayçekirdeği</div>
+                    <div class="item-price">110₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Burçak Kakaolu Bisküvi</div>
+                    <div class="item-description">Kakaolu klasik bisküvi</div>
+                    <div class="item-price">45₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Biskrem</div>
+                    <div class="item-description">Kremalı bisküvi</div>
+                    <div class="item-price">70₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Oreo Bisküvi</div>
+                    <div class="item-description">Klasik kakao kremalı bisküvi</div>
+                    <div class="item-price">100₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Çizi</div>
+                    <div class="item-description">Tuzlu çubuk çerez</div>
+                    <div class="item-price">35₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">McVities Mavi</div>
+                    <div class="item-description">Çikolata kaplı bisküvi</div>
+                    <div class="item-price">70₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Pop Kek</div>
+                    <div class="item-description">Yumuşak kek</div>
+                    <div class="item-price">30₺</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="classic-coffee" class="menu-section-content">
+            <button class="back-button" onclick="showHome()">← Ana Menüye Dön</button>
+            <h2 class="section-title"><span class="section-icon">☕</span> Classic Kahveler</h2>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <div class="item-name">Flat White Büyük Soğuk</div>
+                    <div class="item-description">Espresso ve süt, soğuk servis</div>
+                    <div class="item-price">135₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Flat White Büyük Sıcak</div>
+                    <div class="item-description">Espresso ve süt, sıcak servis</div>
+                    <div class="item-price">136₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Flat White Orta Soğuk/Sıcak</div>
+                    <div class="item-description">Espresso ve süt, orta boy</div>
+                    <div class="item-price">44₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Cappuccino Orta</div>
+                    <div class="item-description">Espresso, süt köpüğü ve süt</div>
+                    <div class="item-price">44₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Cappuccino Büyük</div>
+                    <div class="item-description">Espresso, süt köpüğü ve süt, büyük boy</div>
+                    <div class="item-price">120₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Cortado Büyük</div>
+                    <div class="item-description">Espresso ve az miktarda sıcak süt</div>
+                    <div class="item-price">140₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Espresso Double</div>
+                    <div class="item-description">Çift shot espresso</div>
+                    <div class="item-price">100₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Espresso Single</div>
+                    <div class="item-description">Tek shot espresso</div>
+                    <div class="item-price">70₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Türk Kahvesi</div>
+                    <div class="item-description">Geleneksel Türk kahvesi</div>
+                    <div class="item-price">85₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Double Türk Kahvesi</div>
+                    <div class="item-description">Çift porsiyonluk Türk kahvesi</div>
+                    <div class="item-price">105₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Menengiç Türk Kahvesi Küçük</div>
+                    <div class="item-description">Menengiç ağacından özel kahve</div>
+                    <div class="item-price">100₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Menengiç Türk Kahvesi Büyük</div>
+                    <div class="item-description">Menengiç ağacından özel kahve, büyük boy</div>
+                    <div class="item-price">115₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Americano</div>
+                    <div class="item-description">Espresso ve sıcak su</div>
+                    <div class="item-price">130₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Latte</div>
+                    <div class="item-description">Espresso ve bol sütlü kahve</div>
+                    <div class="item-price">150₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Nescafe</div>
+                    <div class="item-description">Hazır kahve</div>
+                    <div class="item-price">75₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Filtre Kahve</div>
+                    <div class="item-description">Damla damla demlenen kahve</div>
+                    <div class="item-price">130₺</div>
+                </div>
+            </div>
+            <h3 style="font-size: 1.5em; color: #667eea; margin: 30px 0 20px;">Ekstra Seçenekler</h3>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <div class="item-name">Extra Şurup</div>
+                    <div class="item-price">3₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Light Süt</div>
+                    <div class="item-price">3₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Laktozsuz Süt</div>
+                    <div class="item-price">10₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Extra Shot</div>
+                    <div class="item-price">5₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Badem Sütü</div>
+                    <div class="item-price">15₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Soya Sütü</div>
+                    <div class="item-price">10₺</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="frappe" class="menu-section-content">
+            <button class="back-button" onclick="showHome()">← Ana Menüye Dön</button>
+            <h2 class="section-title"><span class="section-icon">🥤</span> Frappeler</h2>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <div class="item-name">Frappe</div>
+                    <div class="item-description">Buzlu köpüklü kahve</div>
+                    <div class="item-price">230₺</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="frozen" class="menu-section-content">
+            <button class="back-button" onclick="showHome()">← Ana Menüye Dön</button>
+            <h2 class="section-title"><span class="section-icon">🧊</span> Frozenlar</h2>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <div class="item-name">Frozen</div>
+                    <div class="item-description">Buzlu soğuk içecek</div>
+                    <div class="item-price">180₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Capella</div>
+                    <div class="item-description">Özel buzlu içecek</div>
+                    <div class="item-price">180₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Extra Şurup</div>
+                    <div class="item-price">3₺</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="beverages" class="menu-section-content">
+            <button class="back-button" onclick="showHome()">← Ana Menüye Dön</button>
+            <h2 class="section-title"><span class="section-icon">🥤</span> Hazır İçecekler</h2>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <div class="item-name">Su</div>
+                    <div class="item-description">İçme suyu</div>
+                    <div class="item-price">35₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Limonlu Su</div>
+                    <div class="item-description">Limon aromalı maden suyu</div>
+                    <div class="item-price">40₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Beypazarı Soda</div>
+                    <div class="item-description">Doğal maden suyu sodası</div>
+                    <div class="item-price">60₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Damla Meyveli Soda</div>
+                    <div class="item-description">Meyveli gazlı içecek</div>
+                    <div class="item-price">70₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Damla Soda</div>
+                    <div class="item-description">Klasik gazoz</div>
+                    <div class="item-price">50₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Churchill</div>
+                    <div class="item-description">Premium maden suyu</div>
+                    <div class="item-price">95₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Beyaz Redbull</div>
+                    <div class="item-description">Enerji içeceği, beyaz seri</div>
+                    <div class="item-price">150₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Redbull</div>
+                    <div class="item-description">Enerji içeceği</div>
+                    <div class="item-price">130₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Coca Cola Zero</div>
+                    <div class="item-description">Şekersiz kola</div>
+                    <div class="item-price">100₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Coca Cola</div>
+                    <div class="item-description">Klasik kola</div>
+                    <div class="item-price">100₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Coca Cola Küçük</div>
+                    <div class="item-description">Küçük boy kola</div>
+                    <div class="item-price">70₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Coca Cola Intergalactic</div>
+                    <div class="item-description">Özel seri kola</div>
+                    <div class="item-price">100₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Ice Tea</div>
+                    <div class="item-description">Soğuk çay</div>
+                    <div class="item-price">90₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Gazoz</div>
+                    <div class="item-description">Meyveli gazlı içecek</div>
+                    <div class="item-price">70₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Fanta</div>
+                    <div class="item-description">Portakallı gazoz</div>
+                    <div class="item-price">100₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Sprite</div>
+                    <div class="item-description">Limonlu gazoz</div>
+                    <div class="item-price">100₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Cappy Meyve Suyu</div>
+                    <div class="item-description">Meyve suyu</div>
+                    <div class="item-price">70₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Portakal Suyu</div>
+                    <div class="item-description">Taze sıkılmış portakal suyu</div>
+                    <div class="item-price">150₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Büyük Ayran</div>
+                    <div class="item-description">Yoğurt içeceği, büyük boy</div>
+                    <div class="item-price">60₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Küçük Ayran</div>
+                    <div class="item-description">Yoğurt içeceği, küçük boy</div>
+                    <div class="item-price">45₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Limonata</div>
+                    <div class="item-description">Taze limon şerbeti</div>
+                    <div class="item-price">100₺</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="desserts" class="menu-section-content">
+            <button class="back-button" onclick="showHome()">← Ana Menüye Dön</button>
+            <h2 class="section-title"><span class="section-icon">🍰</span> Pasta & Tatlılar</h2>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <div class="item-name">Profiterol</div>
+                    <div class="item-description">Kremalı çikolata sürprizli hamur topları</div>
+                    <div class="item-price">150₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Magnolia Lotus</div>
+                    <div class="item-description">Lotus aromalı premium pasta</div>
+                    <div class="item-price">180₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Magnolia Dubai Çikolatalı</div>
+                    <div class="item-description">Dubai usulü çikolatalı pasta</div>
+                    <div class="item-price">180₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Magnolia Çilekli</div>
+                    <div class="item-description">Taze çilekli pasta</div>
+                    <div class="item-price">170₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Magnolia Muzlu Oreolu</div>
+                    <div class="item-description">Muz ve Oreo'lu özel pasta</div>
+                    <div class="item-price">160₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Limonlu Cheesecake</div>
+                    <div class="item-description">Taze limonlu peynirli kek</div>
+                    <div class="item-price">150₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Frambuaz Cheesecake</div>
+                    <div class="item-description">Frambuazlı peynirli kek</div>
+                    <div class="item-price">150₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Lotus Cheesecake</div>
+                    <div class="item-description">Lotus bisküvili peynirli kek</div>
+                    <div class="item-price">150₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Dondurma Top</div>
+                    <div class="item-description">Tek top dondurma</div>
+                    <div class="item-price">35₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Mozaik Pasta</div>
+                    <div class="item-description">Bisküvili çikolatalı soğuk pasta</div>
+                    <div class="item-price">160₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Magnum Pasta</div>
+                    <div class="item-description">Magnum çikolatalı özel pasta</div>
+                    <div class="item-price">160₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Ekler</div>
+                    <div class="item-description">Kremalı hamur tatlısı</div>
+                    <div class="item-price">80₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Donut</div>
+                    <div class="item-description">Klasik halka tatlısı</div>
+                    <div class="item-price">120₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Büyük Donut</div>
+                    <div class="item-description">Büyük boy halka tatlısı</div>
+                    <div class="item-price">150₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Spoonful</div>
+                    <div class="item-description">Kaşıkla yenilen özel tatlı</div>
+                    <div class="item-price">180₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Snickers</div>
+                    <div class="item-description">Snickers aromalı pasta</div>
+                    <div class="item-price">180₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Triliçe</div>
+                    <div class="item-description">Sütlü yumuşak kek</div>
+                    <div class="item-price">160₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Çikolatalı Mousse</div>
+                    <div class="item-description">Hafif çikolatalı tatlı</div>
+                    <div class="item-price">200₺</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="special-coffee" class="menu-section-content">
+            <button class="back-button" onclick="showHome()">← Ana Menüye Dön</button>
+            <h2 class="section-title"><span class="section-icon">✨</span> Special Kahveler</h2>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <div class="item-name">Küçük Sıcak Çikolata</div>
+                    <div class="item-description">Sıcak kakao içeceği</div>
+                    <div class="item-price">130₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Büyük Soğuk Çikolata</div>
+                    <div class="item-description">Buzlu kakao içeceği</div>
+                    <div class="item-price">160₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Büyük Sıcak Çikolata</div>
+                    <div class="item-description">Sıcak kakao içeceği, büyük boy</div>
+                    <div class="item-price">160₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Toffee Nut Latte Büyük Sıcak/Soğuk</div>
+                    <div class="item-description">Fındıklı karamel soslu latte</div>
+                    <div class="item-price">180₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Caramel Macchiato Büyük Sıcak/Soğuk</div>
+                    <div class="item-description">Karamelli latte macchiato</div>
+                    <div class="item-price">180₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Mocha Büyük Sıcak/Soğuk</div>
+                    <div class="item-description">Çikolatalı espresso ve süt</div>
+                    <div class="item-price">180₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">White Mocha Büyük Sıcak/Soğuk</div>
+                    <div class="item-description">Beyaz çikolatalı espresso ve süt</div>
+                    <div class="item-price">180₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Salep Büyük</div>
+                    <div class="item-description">Geleneksel sıcak salep içeceği</div>
+                    <div class="item-price">130₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Cocostar Latte</div>
+                    <div class="item-description">Hindistan cevizi aromalı latte</div>
+                    <div class="item-price">180₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Vanilla Latte</div>
+                    <div class="item-description">Vanilya aromalı latte</div>
+                    <div class="item-price">170₺</div>
+                </div>
+            </div>
+            <h3 style="font-size: 1.5em; color: #667eea; margin: 30px 0 20px;">Ekstra Seçenekler</h3>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <div class="item-name">Extra Şurup</div>
+                    <div class="item-price">5₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Light Süt</div>
+                    <div class="item-price">3₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Badem Sütü</div>
+                    <div class="item-price">15₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Soya Sütü</div>
+                    <div class="item-price">10₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Laktozsuz Süt</div>
+                    <div class="item-price">10₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Extra Shot</div>
+                    <div class="item-price">10₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Crema</div>
+                    <div class="item-price">1₺</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="tea" class="menu-section-content">
+            <button class="back-button" onclick="showHome()">← Ana Menüye Dön</button>
+            <h2 class="section-title"><span class="section-icon">🍵</span> Çaylar</h2>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <div class="item-name">Nane Limon Çay</div>
+                    <div class="item-description">Nane ve limon aromalı çay</div>
+                    <div class="item-price">100₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Fincan Çay</div>
+                    <div class="item-description">Fincan çay</div>
+                    <div class="item-price">65₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Oralet Çay</div>
+                    <div class="item-description">Oralet çay</div>
+                    <div class="item-price">50₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Alman Çay</div>
+                    <div class="item-description">Alman usulü demlik çay</div>
+                    <div class="item-price">100₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Çay</div>
+                    <div class="item-description">Klasik Türk çayı</div>
+                    <div class="item-price">40₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Bitki Çayı</div>
+                    <div class="item-description">Çeşitli bitki çayları</div>
+                    <div class="item-price">65₺</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="food" class="menu-section-content">
+            <button class="back-button" onclick="showHome()">← Ana Menüye Dön</button>
+            <h2 class="section-title"><span class="section-icon">🍔</span> Yiyecek</h2>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <div class="item-name">Rio Burger</div>
+                    <div class="item-description">Özel soslu özel hamburger</div>
+                    <div class="item-price">380₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Tabak Köfte</div>
+                    <div class="item-description">Tabak servis köfte</div>
+                    <div class="item-price">300₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Ekmek Arası Köfte</div>
+                    <div class="item-description">Ekmek arasında köfte</div>
+                    <div class="item-price">250₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Soğuk Sandviç</div>
+                    <div class="item-description">Soğuk malzemeli sandviç</div>
+                    <div class="item-price">120₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Sisu Sandviç</div>
+                    <div class="item-description">Özel sandviç çeşidi</div>
+                    <div class="item-price">200₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Füme Sandviç</div>
+                    <div class="item-description">Füme etli sandviç</div>
+                    <div class="item-price">150₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Biberli Yumurta</div>
+                    <div class="item-description">Biber ile hazırlanan yumurta</div>
+                    <div class="item-price">130₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Menemen</div>
+                    <div class="item-description">Domates, biber ve yumurta</div>
+                    <div class="item-price">180₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Omlet</div>
+                    <div class="item-description">Klasik omlet</div>
+                    <div class="item-price">140₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Sahanda Sucuk</div>
+                    <div class="item-description">Sahanda pişmiş sucuk</div>
+                    <div class="item-price">150₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Sahanda Yumurta</div>
+                    <div class="item-description">Sahanda pişmiş yumurta</div>
+                    <div class="item-price">120₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Kahvaltı Tabağı</div>
+                    <div class="item-description">Karışık kahvaltı tabağı</div>
+                    <div class="item-price">220₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Patates</div>
+                    <div class="item-description">Kızarmış patates</div>
+                    <div class="item-price">150₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Porsiyon Tavuk</div>
+                    <div class="item-description">Tavuk porsiyon</div>
+                    <div class="item-price">250₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Üç Çeyrek Ekmek Arası Tavuk</div>
+                    <div class="item-description">Büyük boy tavuklu sandviç</div>
+                    <div class="item-price">345₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Yarım Ekmek Arası Tavuk</div>
+                    <div class="item-description">Orta boy tavuklu sandviç</div>
+                    <div class="item-price">230₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Full Karışık Tost</div>
+                    <div class="item-description">Zengin malzemeli tost</div>
+                    <div class="item-price">230₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Kaşarlı Tost</div>
+                    <div class="item-description">Kaşar peynirli tost</div>
+                    <div class="item-price">160₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Karışık Tost</div>
+                    <div class="item-description">Karışık malzemeli tost</div>
+                    <div class="item-price">200₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Kremalı Tavuklu Makarna</div>
+                    <div class="item-description">Kremalı soslu tavuklu makarna</div>
+                    <div class="item-price">300₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">1 Kişilik Çıtır Tabak</div>
+                    <div class="item-description">Çeşitli çıtır atıştırmalıklar</div>
+                    <div class="item-price">250₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">2 Kişilik Çıtır Tabak</div>
+                    <div class="item-description">Çeşitli çıtır atıştırmalıklar, 2 kişilik</div>
+                    <div class="item-price">450₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">8li Çıtır Soğan</div>
+                    <div class="item-description">Çıtır soğan halkası, 8 adet</div>
+                    <div class="item-price">90₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">4lü Çıtır Soğan</div>
+                    <div class="item-description">Çıtır soğan halkası, 4 adet</div>
+                    <div class="item-price">50₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Tavuk + Köfte 1.5 Porsiyon</div>
+                    <div class="item-description">Tavuk ve köfte karışık, 1.5 porsiyon</div>
+                    <div class="item-price">400₺</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Tavuk + Köfte 1 Porsiyon</div>
+                    <div class="item-description">Tavuk ve köfte karışık, 1 porsiyon</div>
+                    <div class="item-price">275₺</div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>🌿 Rio Çamlık - Kahve ve Lezzet Durağınız 🌿</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">Afiyet olsun!</p>
+        </footer>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            document.getElementById('home').style.display = 'none';
+            document.querySelectorAll('.menu-section-content').forEach(section => {
+                section.style.display = 'none';
+            });
+            document.getElementById(sectionId).style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+
+        function showHome() {
+            document.getElementById('home').style.display = 'block';
+            document.querySelectorAll('.menu-section-content').forEach(section => {
+                section.style.display = 'none';
+            });
+            window.scrollTo(0, 0);
+        }
+    </script>
+</body>
+</html>
+                <div class="menu-item
